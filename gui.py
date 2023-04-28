@@ -27,8 +27,8 @@ def run():
         print(x)
         my_image = Image.open(JPEGfilepath)
         my_image = my_image.convert('RGB')
-        title_font = ImageFont.truetype('Montserrat ExtraBold.ttf', int(name_value.get()))
-        title_font2 = ImageFont.truetype('Montserrat-Bold.ttf', int(id_value.get()))
+        title_font = ImageFont.truetype('fonts/Montserrat ExtraBold.ttf', int(name_value.get()))
+        title_font2 = ImageFont.truetype('fonts/Montserrat-Bold.ttf', int(id_value.get()))
         title_text = namelist[x]
 
         image_editable = ImageDraw.Draw(my_image)
@@ -40,33 +40,33 @@ def run():
 
         image_editable.text(((W - w) / 2, int(height2.get())), title_text, fill=COLORS, font=title_font, dpi=(300, 300), quality=100)
         image_editable.text(((W - w2) / 2, int(height1.get())), str(numlist[x]), fill=COLORS, font=title_font2, dpi=(300, 300), quality=100)
-        my_image.save("temp.jpeg", dpi=(300, 300), quality=100)
-        resizeImage('temp.jpeg', 826, 583) #826, 583
-        my_image = Image.open('resized.jpg')
+        my_image.save("media/temp.jpeg", dpi=(300, 300), quality=100)
+        resizeImage('media/temp.jpeg', 826, 583) #826, 583
+        my_image = Image.open('media/resized.jpg')
         my_image = my_image.filter(DETAIL)
-        my_image.save('test.pdf', "PDF", resolution=100.0, save_all=True, dpi=(300, 300), quality=100)
+        my_image.save('media/test.pdf', "PDF", resolution=100.0, save_all=True, dpi=(300, 300), quality=100)
         merge_pdfs()
-    infile = PdfReader('res.pdf', 'rb')
+    infile = PdfReader('media/res.pdf', 'rb')
     output = PdfWriter()
 
     for i in range(1, len(infile.pages)):
         p = infile.pages[i]
         output.add_page(p)
 
-    with open('res.pdf', 'wb') as f:
+    with open('media/res.pdf', 'wb') as f:
         output.write(f)
 
-    reader = PdfReader('res.pdf')
+    reader = PdfReader('media/res.pdf')
     print(reader.pages[0].mediabox)
     print("done")
 
 def merge_pdfs():
     merger = PdfFileMerger()
 
-    merger.append(PdfFileReader("res.pdf"))
-    merger.append(PdfFileReader("test.pdf"))
+    merger.append(PdfFileReader("media/res.pdf"))
+    merger.append(PdfFileReader("media/test.pdf"))
 
-    merger.write("res.pdf")
+    merger.write("media/res.pdf")
 
 
 def create_button_frame(container):
@@ -83,6 +83,7 @@ def create_button_frame(container):
     global height1 #307
     ttk.Label(frame, text='Высота текста (номер):').grid(column=0, row=4, sticky=tk.W)
     height1 = ttk.Entry(frame, width=15)
+    height1.insert(0, 370)
     height1.grid(column=0, row=5)
 
     global id_value
@@ -93,6 +94,7 @@ def create_button_frame(container):
     global height2
     ttk.Label(frame, text='Высота текста (имя):').grid(column=0, row=8, sticky=tk.W)
     height2 = ttk.Entry(frame, width=15)
+    height2.insert(0, 550)
     height2.grid(column=0, row=9)
 
     global name_value

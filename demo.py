@@ -6,12 +6,12 @@ from PIL import Image, ImageFont, ImageDraw, ImageTk, ImageFile
 from resizePhoto import resizeImage
 
 def runDemo(JPEGfilepath, size2, size1, height1, height2):
-    canvas = Canvas("res.pdf")
+    canvas = Canvas("media/res.pdf")
     canvas.drawString(72, 72, "i <3 NomadSport")
     canvas.save()
 
-    title_font = ImageFont.truetype('Montserrat ExtraBold.ttf', int(size1))
-    title_font2 = ImageFont.truetype('Montserrat-Bold.ttf', int(size2))
+    title_font = ImageFont.truetype('fonts/Montserrat ExtraBold.ttf', int(size1))
+    title_font2 = ImageFont.truetype('fonts/Montserrat-Bold.ttf', int(size2))
     title_text = "KUDAIBERGEN"
 
     my_image = Image.open(JPEGfilepath)
@@ -26,10 +26,10 @@ def runDemo(JPEGfilepath, size2, size1, height1, height2):
     image_editable.text(((W - w2) / 2, int(height1)), "0123", fill=COLORS, font=title_font2)
     image_editable.text(((W - w) / 2, int(height2)), title_text, fill=COLORS, font=title_font)
 
-    my_image.save("demo.jpg")
-    my_image.save("compare.jpg")
-    resizeImage("demo.jpg")
-    demoImage = Image.open("resized.jpg")
+    my_image.save("media/demo.jpg")
+    my_image.save("media/compare.jpg")
+    resizeImage("media/demo.jpg")
+    demoImage = Image.open("media/resized.jpg")
 
     canvas = tk.Canvas(width=900, height=620, bg='gray')
     canvas.grid(column=1, row=0, rowspan=15)
